@@ -3,7 +3,7 @@ import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
 
 // text editing controllers
-final usernameController = TextEditingController();
+final emailController = TextEditingController();
 final passwordController = TextEditingController();
 
 // sign user in
@@ -58,8 +58,8 @@ class SigninScreen extends StatelessWidget {
 
                       // Username TextField
                       MyTextfield(
-                        controller: usernameController,
-                        hintText: 'Username',
+                        controller: emailController,
+                        hintText: 'Email',
                         obscureText: false,
                       ),
                       const SizedBox(

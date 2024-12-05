@@ -17,7 +17,7 @@ class SignupScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-         SafeArea(
+        SafeArea(
           child: Center(
             child: SingleChildScrollView(
               child: Padding(
@@ -40,7 +40,7 @@ class SignupScreen extends StatelessWidget {
                                   )),
                               TextSpan(
                                   text:
-                                  "\nExplore, Connect, and Enjoy a seamless experience. Let's get started!",
+                                      "\nExplore, Connect, and Enjoy a seamless experience. Let's get started!",
                                   style: TextStyle(
                                     fontSize: 25,
                                     // height: 0,
@@ -50,56 +50,71 @@ class SignupScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30,),
-                    const MyTextfield(hintText: "Email", obscureText: false),
-                    const SizedBox(height: 30,),
-                    const MyTextfield(hintText: "User Name", obscureText: false),
-                    const SizedBox(height: 30,),
-                    const MyTextfield(hintText: "password", obscureText: false),
-                    const SizedBox(height: 30,),
-                    const MyTextfield(hintText: "confirm password", obscureText: false),
-                    const SizedBox(height: 50,),
-                    const Row(
-                      children: [
-                        SizedBox(width: 100,),
-                         Expanded(
-                           child: MyButton(
-                            button_msg: "Sign up",
-                            button_icon: Icon(Icons.account_box),
-                            bgColor: Colors.blue,
-                            fgColor: Colors.white,
-                            padding: 20,
-                            borderRadius: 30,
-                           ),
-                         ),
-                        SizedBox(width: 100,),
-                      ],
+                    const SizedBox(
+                      height: 30,
                     ),
-                    const SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    const MyTextfield(
+                        hintText: "First Name", obscureText: false),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const MyTextfield(
+                        hintText: "Last Name", obscureText: false),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const MyTextfield(hintText: "Email", obscureText: false),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const MyTextfield(hintText: "Password", obscureText: true),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const MyTextfield(
+                        hintText: "Confirm Password", obscureText: true),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 100),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: MyButton(
+                              button_msg: "Sign up",
+                              button_icon: Icon(Icons.account_box),
+                              bgColor: Colors.blue,
+                              fgColor: Colors.white,
+                              padding: 20,
+                              borderRadius: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          "already hava an acount?",
-                          style: TextStyle(color: Colors.white),
+                        Text(
+                          'Already a member?',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-
-                        MaterialButton(
-                            onPressed: (){
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (e) => SigninScreen(),
-                                ),
-                              );
-                            },
-                          child: const Text(
-                            "sign in",
-                            style: TextStyle(color: Colors.blue),
+                        SizedBox(width: 4),
+                        Text(
+                          'Sign In',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

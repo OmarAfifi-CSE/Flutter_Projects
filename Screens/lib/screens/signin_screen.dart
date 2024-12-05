@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screens/screens/signup_screen.dart';
 import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
 
@@ -44,7 +45,8 @@ class SigninScreen extends StatelessWidget {
                       ),
 
                       // Welcome back message
-                       const Text(textAlign: TextAlign.center,
+                      const Text(
+                        textAlign: TextAlign.center,
                         "Welcome back!\n We’ve missed you.",
                         style: TextStyle(
                           color: Colors.white,
@@ -153,21 +155,30 @@ class SigninScreen extends StatelessWidget {
                       ),
 
                       // Not a member? Register now
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Not a member?',
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(width: 4),
-                          Text(
-                            'Register Now',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                          const SizedBox(width: 4),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupScreen()),
+                              );
+                            },
+                            child: const Text(
+                              'Register Now',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],

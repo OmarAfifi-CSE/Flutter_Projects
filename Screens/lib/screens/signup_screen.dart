@@ -96,21 +96,31 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Already a member?',
                           style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(width: 4),
-                        Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                        const SizedBox(width: 4),
+                        InkWell(
+                          onTap: () {
+                            // Navigate to the next screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SigninScreen()),
+                            );
+                          },
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],

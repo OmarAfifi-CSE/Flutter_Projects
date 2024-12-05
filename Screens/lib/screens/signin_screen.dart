@@ -44,11 +44,12 @@ class SigninScreen extends StatelessWidget {
                       ),
 
                       // Welcome back message
-                      const Text(
-                        "Welcome back! We’ve missed you.",
+                       const Text(textAlign: TextAlign.center,
+                        "Welcome back!\n We’ve missed you.",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(

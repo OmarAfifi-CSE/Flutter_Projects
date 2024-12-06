@@ -25,59 +25,47 @@ class SignupScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Center(
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                  text: 'Welcome! 👋\n',
-                                  style: TextStyle(
-                                    fontSize: 45.0,
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                              TextSpan(
-                                  text:
-                                      "\nExplore, Connect, and Enjoy a seamless experience. Let's get started!",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    // height: 0,
-                                  ))
-                            ],
-                          ),
-                        ),
+                    Image.asset(
+                      'assets/images/Sign Up.png',
+                      height: 250,
+                    ),
+                    const Text(
+                      "Create a new account!\n Let's get you started.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     const MyTextfield(
                         hintText: "First Name", obscureText: false),
                     const SizedBox(
-                      height: 30,
+                      height: 15,
                     ),
                     const MyTextfield(
                         hintText: "Last Name", obscureText: false),
                     const SizedBox(
-                      height: 30,
+                      height: 15,
                     ),
                     const MyTextfield(hintText: "Email", obscureText: false),
                     const SizedBox(
-                      height: 30,
+                      height: 15,
                     ),
                     const MyTextfield(hintText: "Password", obscureText: true),
                     const SizedBox(
-                      height: 30,
+                      height: 15,
                     ),
                     const MyTextfield(
                         hintText: "Confirm Password", obscureText: true),
                     const SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 100),
+                      padding: EdgeInsets.symmetric(horizontal: 50),
                       child: Row(
                         children: [
                           Expanded(
@@ -86,7 +74,7 @@ class SignupScreen extends StatelessWidget {
                               button_icon: Icon(Icons.account_box),
                               bgColor: Colors.blue,
                               fgColor: Colors.white,
-                              padding: 20,
+                              padding: 10,
                               borderRadius: 30,
                             ),
                           ),

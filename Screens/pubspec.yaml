@@ -64,6 +64,8 @@ flutter:
     - assets\images\Facebook_Logo.png
     - assets\images\Google_Logo.png
     - assets\images\Sign In.png
+    - assets\images\Sign Up.png
+    - assets\images\X_Logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -41,7 +41,7 @@ class SigninScreen extends StatelessWidget {
                       // Icon
                       Image.asset(
                         'assets/images/Sign In.png',
-                        height: 300,
+                        height: 250,
                       ),
 
                       // Welcome back message
@@ -55,7 +55,7 @@ class SigninScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 20,
                       ),
 
                       // Username TextField
@@ -75,12 +75,12 @@ class SigninScreen extends StatelessWidget {
                         obscureText: true,
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 7,
                       ),
 
                       // Forget password
                       const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 4),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -97,16 +97,16 @@ class SigninScreen extends StatelessWidget {
 
                       // Sign in button
                       const MyButton(
-                        button_msg: 'Sign In',
-                        button_icon: Icon(Icons.login),
-                        bgColor: Colors.blue,
-                        fgColor: Colors.white,
-                        onPressed: null,
-                        padding: 15,
-                        borderRadius: 30,
+                          button_msg: 'Sign In',
+                          button_icon: Icon(Icons.login),
+                          bgColor: Colors.blue,
+                          fgColor: Colors.white,
+                          onPressed: null,
+                          padding: 12,
+                          borderRadius: 12,
                       ),
                       const SizedBox(
-                        height: 50,
+                        height: 20,
                       ),
 
                       // Or continue with divider
@@ -133,6 +133,7 @@ class SigninScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 10,),
 
                       // Google + Facebook buttons
                       Row(
@@ -141,11 +142,16 @@ class SigninScreen extends StatelessWidget {
                           // Google button
                           Image.asset(
                             'assets/images/Google_Logo.png',
-                            height: 72,
+                            height: 48,
                           ),
                           const SizedBox(width: 20),
                           Image.asset(
                             'assets/images/Facebook_Logo.png',
+                            height: 46,
+                          ),
+                          const SizedBox(width: 20),
+                          Image.asset(
+                            'assets/images/X_Logo.png',
                             height: 46,
                           ),
                         ],

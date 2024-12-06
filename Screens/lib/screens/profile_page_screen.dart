@@ -34,52 +34,57 @@ class ProfilePageScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 60,bottom: 30),
+                    padding: const EdgeInsets.only(top: 60, bottom: 20),
                     child: Text(
-                        "Bug Yater",
+                      "Profile Page",
                       style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[1500]
-                      ),
-
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue[1500]),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(0),
                     child: CircleAvatar(
-                      radius: 70,
+                      radius: 80,
                       backgroundColor: Colors.blue[200],
-                      child: const Icon(Icons.person,size: 100,),
+                      child: const Icon(
+                        Icons.person,
+                        size: 150,
+                      ),
                     ),
                   ),
-                    const MyCard(
-                        icon: Icon(Icons.account_box),
-                        title: "Name",
-                    ),
-                    const MyCard(
-                        icon: Icon(Icons.email_outlined),
-                        title: "Email",
-                    ),
-                    const MyCard(
-                        icon: Icon(Icons.phone_android_outlined),
-                        title: "Phone Number",
-                    ),
-                    const MyCard(
-                        icon: Icon(Icons.facebook_outlined),
-                        title: "Facebook Account",
-                    ),
-                  const SizedBox(height: 50,),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const MyCard(
+                    icon: Icon(Icons.account_box),
+                    title: "Bug Yateer",
+                  ),
+                  const MyCard(
+                    icon: Icon(Icons.email_outlined),
+                    title: "Bugyateer.cse@gmail.com",
+                  ),
+                  const MyCard(
+                    icon: Icon(Icons.phone_android_outlined),
+                    title: "+20 1111111111",
+                  ),
+                  const MyCard(
+                    icon: Icon(Icons.facebook_outlined),
+                    title: "/BugYateer.CSE",
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 100),
+                    padding: EdgeInsets.symmetric(horizontal: 50),
                     child: MyButton(
                         button_msg: "Edit profile",
                         button_icon: Icon(Icons.edit),
                         bgColor: Colors.blue,
                         fgColor: Colors.white,
-                        padding: 20,
-                        borderRadius: 30
-                    ),
+                        padding: 15,
+                        borderRadius: 30),
                   )
                 ],
               ),

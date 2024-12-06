@@ -23,7 +23,7 @@ class MyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(10),
       child: Card(
         color: backgroundColor ?? Colors.white70,
         child: ListTile(

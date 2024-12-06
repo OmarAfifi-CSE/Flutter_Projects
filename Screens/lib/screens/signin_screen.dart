@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:screens/screens/signup_screen.dart';
 import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
+import 'profile_page_screen.dart';
 
 // text editing controllers
 final emailController = TextEditingController();
@@ -97,13 +98,13 @@ class SigninScreen extends StatelessWidget {
 
                       // Sign in button
                       const MyButton(
-                          button_msg: 'Sign In',
-                          button_icon: Icon(Icons.login),
-                          bgColor: Colors.blue,
-                          fgColor: Colors.white,
-                          onPressed: null,
-                          padding: 12,
-                          borderRadius: 12,
+                        button_msg: 'Sign In',
+                        button_icon: Icon(Icons.login),
+                        bgColor: Colors.blue,
+                        fgColor: Colors.white,
+                        onPressed: ProfilePageScreen(),
+                        padding: 12,
+                        borderRadius: 12,
                       ),
                       const SizedBox(
                         height: 20,
@@ -133,7 +134,9 @@ class SigninScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
 
                       // Google + Facebook buttons
                       Row(

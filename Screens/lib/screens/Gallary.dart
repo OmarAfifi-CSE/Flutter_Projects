@@ -1,7 +1,5 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -22,12 +20,14 @@ class MyApp extends StatelessWidget {
 class GalleryPage extends StatelessWidget {
   final List<String> buttons = ["GOAT", "Aboutrika", "Nature", "Mountains", "Foot Ball"];
 
+  GalleryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[50],
-        leading: Icon(Icons.menu, color: Colors.black),
+        leading: const Icon(Icons.menu, color: Colors.black),
         title: const Text(
           "Gallery",
           style: TextStyle(color: Colors.black),
@@ -36,13 +36,13 @@ class GalleryPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.settings, color: Colors.black),
+            icon: const Icon(Icons.settings, color: Colors.black),
           )
         ],
       ),
       body: Center(
         child: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           itemCount: buttons.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -61,7 +61,7 @@ class GalleryPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 elevation: 2,
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
                   buttons[index],
                   style: const TextStyle(
@@ -82,7 +82,7 @@ class GalleryPage extends StatelessWidget {
 class ImagePage extends StatelessWidget {
   final String title;
 
-  ImagePage({required this.title});
+  ImagePage({super.key, required this.title});
 
   final Map<String, List<String>> images = {
     "Foot Ball": [
@@ -130,16 +130,16 @@ class ImagePage extends StatelessWidget {
       "assets/images/img3.png",
     ],
     "Mountains": [
-      "assets/images/ountain1.png",
+      "assets/images/mountain1.png",
       "assets/images/mountain2.png",
       "assets/images/mountain3.png",
-      "assets/images/ountain1.png",
+      "assets/images/mountain1.png",
       "assets/images/mountain2.png",
       "assets/images/mountain3.png",
-      "assets/images/ountain1.png",
+      "assets/images/mountain1.png",
       "assets/images/mountain2.png",
       "assets/images/mountain3.png",
-      "assets/images/ountain1.png",
+      "assets/images/mountain1.png",
       "assets/images/mountain2.png",
       "assets/images/mountain3.png",
     ],

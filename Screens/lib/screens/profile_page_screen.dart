@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:screens/clippers/wave_clipper.dart';
 import 'package:screens/componants/my_button.dart';
 import 'package:screens/componants/my_card.dart';
+import 'package:screens/screens/Gallary.dart';
 
 class ProfilePageScreen extends StatelessWidget {
   const ProfilePageScreen({super.key});
@@ -74,8 +75,21 @@ class ProfilePageScreen extends StatelessWidget {
                     title: "/BugYateer.CSE",
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 15,
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: MyButton(
+                        button_msg: "Gallary",
+                        button_icon: const Icon(Icons.photo_camera_back_outlined),
+                        bgColor: Colors.white70,
+                        fgColor: Colors.black45,
+                        padding: 15,
+                        borderRadius: 10,
+                        onPressed: GalleryPage(),
+                    ),
+                  ),
+                  const SizedBox(height: 30,),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 50),
                     child: MyButton(
@@ -85,7 +99,8 @@ class ProfilePageScreen extends StatelessWidget {
                         fgColor: Colors.white,
                         padding: 15,
                         borderRadius: 30),
-                  )
+                  ),
+
                 ],
               ),
             ),

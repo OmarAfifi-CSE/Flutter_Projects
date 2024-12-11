@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/screens/profile_screen.dart';
 import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
 import 'signup_screen.dart';
@@ -153,7 +154,7 @@ class _SigninScreenState extends State<SigninScreen> {
                       button_msg: 'Login',
                       bgColor: Colors.blue,
                       fgColor: Colors.white,
-                      onPressed: null,
+                      onPressed: ProfileScreen(),
                       padding: 15,
                       borderRadius: 50,
                     ),

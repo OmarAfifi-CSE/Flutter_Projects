@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/screens/profile_screen.dart';
 import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
+import 'signup_screen.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -13,6 +15,8 @@ class _SigninScreenState extends State<SigninScreen> {
   // Declare TextEditingControllers for email and password fields
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> emailState = GlobalKey();
+  final GlobalKey<FormState> passwordState = GlobalKey();
 
   @override
   void dispose() {
@@ -90,6 +94,8 @@ class _SigninScreenState extends State<SigninScreen> {
                       controller: _emailController,
                       hintText: 'Email',
                       obscureText: false,
+                      formKey: emailState,
+                      valMessage: "Enter your Email",
                     ),
                     const SizedBox(
                       height: 30,
@@ -123,6 +129,8 @@ class _SigninScreenState extends State<SigninScreen> {
                       controller: _passwordController,
                       hintText: 'Password',
                       obscureText: true,
+                      formKey: passwordState,
+                      valMessage: "Enter your Password",
                     ),
                     const SizedBox(
                       height: 40,
@@ -148,29 +156,43 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
 
                     // Sign in button
-                    const MyButton(
+                    MyButton(
                       button_msg: 'Login',
                       bgColor: Colors.blue,
                       fgColor: Colors.white,
-                      onPressed: null,
+
+                      onPressed: (){
+                        emailState.currentState!.validate();
+                        passwordState.currentState!.validate();
+                      },
+
+
+
                       padding: 15,
                       borderRadius: 50,
                     ),
                     const SizedBox(
                       height: 15,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Don't have an account?",
                           style: TextStyle(
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         InkWell(
-                          child: Text(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignupScreen()),
+                            );
+                          },
+                          child: const Text(
                             'Sign Up',
                             style: TextStyle(
                               color: Colors.blue,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyButton extends StatelessWidget {
   final String button_msg;
   final Icon? button_icon;
-  final Widget? onPressed;
+  final VoidCallback? onPressed;
   final Color bgColor;
   final Color fgColor;
   final double padding;
@@ -26,16 +26,7 @@ class MyButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton.icon(
-          onPressed: () {
-            if (onPressed != null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (e) => onPressed!,
-                ),
-              );
-            }
-          },
+          onPressed: onPressed,
           label: Text(
             button_msg,
             style: const TextStyle(fontSize: 20),

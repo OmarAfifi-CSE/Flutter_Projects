@@ -68,11 +68,21 @@ class WelcomeScreen extends StatelessWidget {
                       ),
 
                       // Sign in button
-                      const MyButton(
-                        button_msg: 'Lets Start',
+
+
+
+                      MyButton(
+                        button_msg: "Get Started",
                         bgColor: Colors.blue,
                         fgColor: Colors.white,
-                        onPressed: SigninScreen(),
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (e) => const SigninScreen(),
+                            ),
+                          );
+                        },
                         padding: 15,
                         borderRadius: 50,
                       ),

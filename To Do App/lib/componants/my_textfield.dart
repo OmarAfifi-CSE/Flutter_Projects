@@ -4,12 +4,16 @@ class MyTextfield extends StatefulWidget {
   final TextEditingController? controller;
   final String hintText;
   final bool obscureText;
+  final GlobalKey<FormState>? formKey;
+  final String? valMessage;
 
   const MyTextfield({
     Key? key,
     this.controller,
     required this.hintText,
     required this.obscureText,
+    this.formKey,
+    this.valMessage,
   }) : super(key: key);
 
   @override
@@ -18,6 +22,7 @@ class MyTextfield extends StatefulWidget {
 
 class _MyTextfieldState extends State<MyTextfield> {
   late bool _obscureText;
+
 
   @override
   void initState() {
@@ -29,40 +34,49 @@ class _MyTextfieldState extends State<MyTextfield> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0),
-      child: TextField(
-        controller: widget.controller,
-        obscureText: _obscureText,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(13),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide:  const BorderSide(color: Color(0xFF828282)),
+      child: Form(
+        key: widget.formKey,
+          child: TextFormField(
+            validator: (value){
+              if(value!.isEmpty){
+                return widget.valMessage;
+              }
+              return null;
+            },
+            controller: widget.controller,
+            obscureText: _obscureText,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(13),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide:  const BorderSide(color: Color(0xFF828282)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.blue.shade600, width: 2),
+              ),
+              fillColor: Colors.white,
+              filled: true,
+              hintText: widget.hintText,
+              hintStyle: const TextStyle(color: Color(0xFF828282)),
+              suffixIcon: widget.obscureText
+                  ? IconButton(
+                icon: Icon(
+                  _obscureText
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: const Color(0xFF828282),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+              )
+                  : null,
+            ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.blue.shade600, width: 2),
-          ),
-          fillColor: Colors.white,
-          filled: true,
-          hintText: widget.hintText,
-          hintStyle: const TextStyle(color: Color(0xFF828282)),
-          suffixIcon: widget.obscureText
-              ? IconButton(
-                  icon: Icon(
-                    _obscureText
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
-                    color: const Color(0xFF828282),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                )
-              : null,
-        ),
-      ),
+      )
     );
   }
 }

@@ -15,6 +15,8 @@ class _SigninScreenState extends State<SigninScreen> {
   // Declare TextEditingControllers for email and password fields
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> emailState = GlobalKey();
+  final GlobalKey<FormState> passwordState = GlobalKey();
 
   @override
   void dispose() {
@@ -92,6 +94,8 @@ class _SigninScreenState extends State<SigninScreen> {
                       controller: _emailController,
                       hintText: 'Email',
                       obscureText: false,
+                      formKey: emailState,
+                      valMessage: "Enter your Email",
                     ),
                     const SizedBox(
                       height: 30,
@@ -125,6 +129,8 @@ class _SigninScreenState extends State<SigninScreen> {
                       controller: _passwordController,
                       hintText: 'Password',
                       obscureText: true,
+                      formKey: passwordState,
+                      valMessage: "Enter your Password",
                     ),
                     const SizedBox(
                       height: 40,
@@ -150,11 +156,14 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
 
                     // Sign in button
-                    const MyButton(
+                    MyButton(
                       button_msg: 'Login',
                       bgColor: Colors.blue,
                       fgColor: Colors.white,
-                      onPressed: ProfileScreen(),
+                      onPressed: (){
+                        emailState.currentState!.validate();
+                        passwordState.currentState!.validate();
+                      },
                       padding: 15,
                       borderRadius: 50,
                     ),

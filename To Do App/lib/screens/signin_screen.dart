@@ -157,12 +157,42 @@ class _SigninScreenState extends State<SigninScreen> {
 
                     // Sign in button
                     MyButton(
-                      button_msg: 'Login',
+                      button_msg: 'Sign In',
                       bgColor: Colors.blue,
                       fgColor: Colors.white,
-                      onPressed: (){
-                        emailState.currentState!.validate();
-                        passwordState.currentState!.validate();
+                      onPressed: () {
+                        // Validate all fields
+                        bool isEmailValid = emailState.currentState!.validate();
+                        bool isPasswordValid =
+                            passwordState.currentState!.validate();
+                        if (isEmailValid && isPasswordValid) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfileScreen(),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                'Please fill out all fields correctly!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              backgroundColor: Colors.red,
+                              behavior: SnackBarBehavior.floating,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              margin: const EdgeInsets.all(20),
+                              elevation: 10,
+                              duration: const Duration(seconds: 3),
+                            ),
+                          );
+                        }
                       },
                       padding: 15,
                       borderRadius: 50,

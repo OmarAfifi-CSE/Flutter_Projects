@@ -4,7 +4,6 @@ import '../clippers/wave_clipper.dart';
 import '../componants/my_button.dart';
 import '../componants/my_card.dart';
 
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -73,29 +72,27 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  const SizedBox(height: 30,),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: MyButton(
-                        button_msg: "Edit profile",
-                        button_icon: Icon(Icons.edit),
-                        bgColor: Colors.blue,
-                        fgColor: Colors.white,
-                        padding: 15,
-                        borderRadius: 30),
-                  ),
-                  const SizedBox(height: 30,),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: MyButton(
-                        button_msg: "Log Out",
-                        onPressed: SigninScreen(),
-                        bgColor: Colors.blue,
-                        fgColor: Colors.white,
-                        padding: 15,
-                        borderRadius: 30),
+                  const SizedBox(
+                    height: 30,
                   ),
 
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: MyButton(
+                        button_msg: "Log Out",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfileScreen(),
+                            ),
+                          );
+                        },
+                        bgColor: Colors.blue,
+                        fgColor: Colors.white,
+                        padding: 15,
+                        borderRadius: 30),
+                  ),
                 ],
               ),
             ),

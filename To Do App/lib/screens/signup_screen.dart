@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
+import 'profile_screen.dart';
 import 'signin_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -15,6 +16,9 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> usernameState = GlobalKey();
+  final GlobalKey<FormState> emailState = GlobalKey();
+  final GlobalKey<FormState> passwordState = GlobalKey();
 
   @override
   void dispose() {
@@ -92,6 +96,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     MyTextfield(
                       controller: _usernameController,
                       hintText: 'Username',
+                      formKey: usernameState,
+                      valMessage: 'Enter username',
                       obscureText: false,
                     ),
                     const SizedBox(
@@ -124,6 +130,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     MyTextfield(
                       controller: _emailController,
                       hintText: 'Email',
+                      formKey: emailState,
+                      valMessage: 'Enter email',
                       obscureText: false,
                     ),
                     const SizedBox(
@@ -158,24 +166,67 @@ class _SignupScreenState extends State<SignupScreen> {
                       controller: _passwordController,
                       hintText: 'Password',
                       obscureText: true,
+                      formKey: passwordState,
+                      valMessage: 'Enter password',
                     ),
                     const SizedBox(
                       height: 100,
                     ),
 
-                    // Sign in button
-                    const MyButton(
+                    // Sign up button
+
+                    MyButton(
                       button_msg: 'Sign Up',
                       bgColor: Colors.blue,
                       fgColor: Colors.white,
-                      onPressed: null,
+                      onPressed: () {
+                        // Validate all fields
+                        bool isUsernameValid =
+                            usernameState.currentState!.validate();
+                        bool isEmailValid = emailState.currentState!.validate();
+                        bool isPasswordValid =
+                            passwordState.currentState!.validate();
+
+                        // Check if all validations passed
+                        if (isUsernameValid &&
+                            isEmailValid &&
+                            isPasswordValid) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfileScreen(),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                'Please fill out all fields correctly!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              backgroundColor: Colors.red,
+                              behavior: SnackBarBehavior.floating,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              margin: const EdgeInsets.all(20),
+                              elevation: 10,
+                              duration: const Duration(seconds: 3),
+                            ),
+                          );
+                        }
+                      },
                       padding: 15,
                       borderRadius: 50,
                     ),
+
                     const SizedBox(
                       height: 15,
                     ),
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(

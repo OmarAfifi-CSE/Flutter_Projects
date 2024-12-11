@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
-import 'signup_screen.dart';
+import 'signin_screen.dart';
 
-class SigninScreen extends StatefulWidget {
-  const SigninScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  _SigninScreenState createState() => _SigninScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _SigninScreenState extends State<SigninScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   // Declare TextEditingControllers for email and password fields
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     // Dispose the controllers when the widget is disposed
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -41,7 +43,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     // Welcome back message
                     const Text(
                       textAlign: TextAlign.center,
-                      "Welcome Back",
+                      "Create Account",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
@@ -53,7 +55,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                     const Text(
                       textAlign: TextAlign.start,
-                      "Login",
+                      "Sign Up",
                       style: TextStyle(
                         color: Colors.blue,
                         fontSize: 30,
@@ -69,7 +71,39 @@ class _SigninScreenState extends State<SigninScreen> {
                           width: 5,
                         ),
                         Icon(
-                          Icons.mail_outlined,
+                          Icons.person_outline_outlined,
+                          size: 12,
+                        ),
+                        Text(
+                          textAlign: TextAlign.start,
+                          " Your username",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    // Email TextField
+                    MyTextfield(
+                      controller: _usernameController,
+                      hintText: 'Username',
+                      obscureText: false,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.email_outlined,
                           size: 12,
                         ),
                         Text(
@@ -126,31 +160,12 @@ class _SigninScreenState extends State<SigninScreen> {
                       obscureText: true,
                     ),
                     const SizedBox(
-                      height: 40,
-                    ),
-
-                    // Forget password
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Forget Password?',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 70,
+                      height: 100,
                     ),
 
                     // Sign in button
                     const MyButton(
-                      button_msg: 'Login',
+                      button_msg: 'Sign Up',
                       bgColor: Colors.blue,
                       fgColor: Colors.white,
                       onPressed: null,
@@ -160,11 +175,11 @@ class _SigninScreenState extends State<SigninScreen> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Row(
+                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Don't have an account?",
+                          "Already a user?",
                           style: TextStyle(
                             color: Colors.black,
                           ),
@@ -175,11 +190,11 @@ class _SigninScreenState extends State<SigninScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignupScreen()),
+                                  builder: (context) => const SigninScreen()),
                             );
                           },
                           child: const Text(
-                            'Sign Up',
+                            'Sign In',
                             style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.w500,
@@ -189,7 +204,7 @@ class _SigninScreenState extends State<SigninScreen> {
                       ],
                     ),
                     const SizedBox(
-                      height: 120,
+                      height: 30,
                     ),
                     // Or continue with divider
                     const Text(

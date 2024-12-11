@@ -69,7 +69,7 @@ class WelcomeScreen extends StatelessWidget {
 
                       // Sign in button
                       const MyButton(
-                        button_msg: 'Lets Start',
+                        button_msg: "Get Started",
                         bgColor: Colors.blue,
                         fgColor: Colors.white,
                         onPressed: SigninScreen(),

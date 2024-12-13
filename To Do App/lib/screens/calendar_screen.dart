@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/componants/my_card.dart';
+import 'package:to_do_app/screens/AddTaskScreen.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -135,13 +136,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
-
+        shape: const CircleBorder(),
         onPressed: () {
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (e) => AddTaskScreen(),
+            ),
+          );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add,color: Colors.white,),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

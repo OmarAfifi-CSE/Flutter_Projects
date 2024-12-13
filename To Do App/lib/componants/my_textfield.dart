@@ -43,7 +43,7 @@ class _MyTextfieldState extends State<MyTextfield> {
       child: Form(
         key: widget.formKey,
           child: TextFormField(
-            maxLines: widget.maxLines,
+            maxLines: widget.maxLines?? 1,
             validator: (value){
               if(value!.isEmpty){
                 return widget.valMessage;

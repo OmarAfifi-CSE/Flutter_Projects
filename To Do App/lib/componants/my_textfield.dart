@@ -6,6 +6,9 @@ class MyTextfield extends StatefulWidget {
   final bool obscureText;
   final GlobalKey<FormState>? formKey;
   final String? valMessage;
+  final Color? backgroundColor;
+  final Color? borderSideColor;
+  final int? maxLines;
 
   const MyTextfield({
     Key? key,
@@ -14,6 +17,9 @@ class MyTextfield extends StatefulWidget {
     required this.obscureText,
     this.formKey,
     this.valMessage,
+    this.backgroundColor,
+    this.borderSideColor,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -37,6 +43,7 @@ class _MyTextfieldState extends State<MyTextfield> {
       child: Form(
         key: widget.formKey,
           child: TextFormField(
+            maxLines: widget.maxLines,
             validator: (value){
               if(value!.isEmpty){
                 return widget.valMessage;
@@ -49,13 +56,13 @@ class _MyTextfieldState extends State<MyTextfield> {
               contentPadding: const EdgeInsets.all(13),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide:  const BorderSide(color: Color(0xFF828282)),
+                borderSide: BorderSide(color: widget.borderSideColor??Color(0xFF828282)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: Colors.blue.shade600, width: 2),
               ),
-              fillColor: Colors.white,
+              fillColor:  widget.backgroundColor ?? Colors.white,
               filled: true,
               hintText: widget.hintText,
               hintStyle: const TextStyle(color: Color(0xFF828282)),

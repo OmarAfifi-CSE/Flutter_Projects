@@ -16,7 +16,7 @@ class AddTaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Task'),
+        title: const Text('Add Task', style: TextStyle(color: Color(0xFF2196F3))),
         backgroundColor: Colors.white,
         actions: [
           TextButton(
@@ -49,9 +49,8 @@ class AddTaskScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.black),
+                      color: const Color(0xFFBBDEFB),
+                      borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -66,12 +65,11 @@ class AddTaskScreen extends StatelessWidget {
                         hintText: 'Enter Task Title',
                         contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1.0, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 2.0, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(width: 4, color: Colors.blue),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                       validator: (value) {
@@ -89,82 +87,82 @@ class AddTaskScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF2196F3)),
                   ),
                   const SizedBox(height: 8),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.black),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                        ),
-                      ],
-                    ),
-                    child: TextFormField(
-                      controller: _dateController,
-                      decoration: InputDecoration(
-                        hintText: 'Enter Date',
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1.0, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 2.0, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Date is required';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  const Text(
-                    'Time',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF2196F3)),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.black),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                        ),
-                      ],
-                    ),
-                    child: TextFormField(
-                      controller: _timeController,
-                      decoration: InputDecoration(
-                        hintText: 'Enter Time',
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1.0, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 2.0, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(8.0),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFBBDEFB),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            controller: _dateController,
+                            decoration: InputDecoration(
+                              hintText: 'Enter Date',
+                              prefixIcon: const Icon(Icons.calendar_today, color: Colors.blue),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(width: 4, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Date is required';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Time is required';
-                        }
-                        return null;
-                      },
-                    ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFBBDEFB),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            controller: _timeController,
+                            decoration: InputDecoration(
+                              hintText: 'Enter Time',
+                              prefixIcon: const Icon(Icons.access_time, color: Colors.blue),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(width: 4, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Time is required';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
 
@@ -175,9 +173,8 @@ class AddTaskScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.black),
+                      color: const Color(0xFFBBDEFB),
+                      borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -193,42 +190,40 @@ class AddTaskScreen extends StatelessWidget {
                         hintText: 'Enter Notes',
                         contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1.0, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 2.0, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(width: 4, color: Colors.blue),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
-
-                  FloatingActionButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        final task = {
-                          'title': _titleController.text,
-                          'date': _dateController.text,
-                          'time': _timeController.text,
-                          'notes': _notesController.text,
-                          'done': 'false',
-                        };
-                        Navigator.pop(context, task);
-                      }
-                    },
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(Icons.check, size: 28),
-                  ),
                 ],
               ),
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            final task = {
+              'title': _titleController.text,
+              'date': _dateController.text,
+              'time': _timeController.text,
+              'notes': _notesController.text,
+              'done': 'false',
+            };
+            Navigator.pop(context, task);
+          }
+        },
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: const Icon(Icons.check, size: 28),
       ),
     );
   }

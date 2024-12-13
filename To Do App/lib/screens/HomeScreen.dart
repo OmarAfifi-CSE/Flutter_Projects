@@ -23,6 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _updateTask(int index, Map<String, String> task) {
+    setState(() {
+      _tasks[index] = task;
+    });
+  }
+
   void _searchTask() {
     String searchQuery = _searchController.text.toLowerCase().trim();
     bool taskFound = false;
@@ -130,13 +136,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () {
-                            Navigator.push(
+                          onTap: () async {
+                            final updatedTask = await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => TaskDetailsScreen(task: _tasks[index]),
                               ),
                             );
+                            if (updatedTask != null) {
+                              _updateTask(index, updatedTask);
+                            }
                           },
                         ),
                       ),
@@ -171,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+
 class CalendarScreen extends StatelessWidget {
   const CalendarScreen({super.key});
 
@@ -188,3 +198,4 @@ class SettingsScreen extends StatelessWidget {
     return const Center(child: Text('Settings Page'));
   }
 }
+

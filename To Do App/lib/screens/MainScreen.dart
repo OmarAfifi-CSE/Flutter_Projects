@@ -31,6 +31,10 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -41,22 +45,28 @@ class _MainScreenState extends State<MainScreen> {
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: _onTabTapped,
+          backgroundColor: Colors.white,
+          selectedItemColor: const Color(0xFF2196F3),
+          unselectedItemColor: Colors.black,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
-              label: 'Calendar',
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: 'Settings',
+              label: '',
             ),
           ],
         ),
       ),
     );
   }
+
 }

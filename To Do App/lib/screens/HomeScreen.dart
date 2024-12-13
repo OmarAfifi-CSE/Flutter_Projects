@@ -14,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, String>> _tasks = [];
+  final TextEditingController _searchController = TextEditingController();
+  String _searchError = '';
 
   void _addTask(Map<String, String> task) {
     setState(() {
@@ -21,93 +23,133 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _searchTask() {
+    String searchQuery = _searchController.text.toLowerCase().trim();
+    bool taskFound = false;
+
+    for (var task in _tasks) {
+      if (task['title']?.toLowerCase().contains(searchQuery) ?? false) {
+        taskFound = true;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TaskDetailsScreen(task: task),
+          ),
+        );
+        break;
+      }
+    }
+
+    if (!taskFound) {
+      setState(() {
+        _searchError = 'The task you are searching for is not found.';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: 'Search for Tasks, Events',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+      body: Container(
+        color: Colors.white,
+        width: double.infinity,
+        height: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Search for Tasks, Events',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: _searchTask,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              "Today's Tasks",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 8),
+              if (_searchError.isNotEmpty)
+                Text(
+                  _searchError,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 14,
+                  ),
+                ),
+              const SizedBox(height: 16),
+              const Text(
+                "Today's Tasks",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // ListView with scrollable tasks
-            Expanded(
-              child: ListView.builder(
-                itemCount: _tasks.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 6,
-                            spreadRadius: 2,
+              const SizedBox(height: 16),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _tasks.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 6,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: ListTile(
+                          leading: Checkbox(
+                            value: _tasks[index]['done'] == 'true',
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _tasks[index]['done'] = value! ? 'true' : 'false';
+                              });
+                            },
                           ),
-                        ],
-                      ),
-                      child: ListTile(
-                        leading: Checkbox(
-                          value: _tasks[index]['done'] == 'true',
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _tasks[index]['done'] = value! ? 'true' : 'false';
-                            });
+                          title: Text(
+                            _tasks[index]['title'] ?? '',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          trailing: Text(
+                            _tasks[index]['time'] ?? '',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TaskDetailsScreen(task: _tasks[index]),
+                              ),
+                            );
                           },
                         ),
-                        title: Text(
-                          _tasks[index]['title'] ?? '',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        trailing: Text(
-                          _tasks[index]['time'] ?? '',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TaskDetailsScreen(task: _tasks[index]),
-                            ),
-                          );
-                        },
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-
           final task = await Navigator.push<Map<String, String>>(
             context,
             MaterialPageRoute(
@@ -119,12 +161,15 @@ class _HomeScreenState extends State<HomeScreen> {
             _addTask(task);
           }
         },
-        child: const Icon(Icons.add),
+        backgroundColor: const Color(0xFF2196F3),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
 }
-
 
 class CalendarScreen extends StatelessWidget {
   const CalendarScreen({super.key});

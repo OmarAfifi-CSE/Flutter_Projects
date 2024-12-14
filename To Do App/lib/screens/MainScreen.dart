@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'HomeScreen.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 

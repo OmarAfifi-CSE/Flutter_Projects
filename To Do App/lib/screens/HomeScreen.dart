@@ -93,9 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: filteredTasks.length,
                   itemBuilder: (context, index) {
                     final task = filteredTasks[index];
-                    return MyTaskTile(
-                      task: task['title'] ?? '',
-                      time: task['time'] ?? '',
+                    return GestureDetector(
+                      onTap: () async {
+                        final updatedTask = await Navigator.push<Map<String, String>>(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TaskDetailsScreen(task: task),
+                          ),
+                        );
+                        if (updatedTask != null) {
+                          _updateTask(index, updatedTask); // Update the task after editing
+                        }
+                      },
+                      child: MyTaskTile(
+                        task: task['title'] ?? '',
+                        time: task['time'] ?? '',
+                      ),
                     );
                   },
                 ),
@@ -126,8 +139,25 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 }
 
+class CalendarScreen extends StatelessWidget {
+  const CalendarScreen({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('Calendar Page'));
+  }
+}
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('Settings Page'));
+  }
+}
 
 

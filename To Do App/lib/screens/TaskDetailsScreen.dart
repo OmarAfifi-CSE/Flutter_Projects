@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
+import '../componants/my_textfield.dart';
+
 
 class TaskDetailsScreen extends StatefulWidget {
   final Map<String, String> task;
@@ -13,24 +15,48 @@ class TaskDetailsScreen extends StatefulWidget {
 
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   late TextEditingController _titleController;
-  late TextEditingController _dateController;
-  late TextEditingController _timeController;
   late TextEditingController _notesController;
+  String? dateValue;
+  String? timeValue;
+
+  Future<void> _selectedDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null) {
+      setState(() {
+        dateValue = pickedDate.toLocal().toString().split(' ')[0];
+      });
+    }
+  }
+
+  Future<void> _selectedTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedTime != null) {
+      setState(() {
+        timeValue = pickedTime.format(context);
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.task['title']);
-    _dateController = TextEditingController(text: widget.task['date']);
-    _timeController = TextEditingController(text: widget.task['time']);
     _notesController = TextEditingController(text: widget.task['notes']);
+    dateValue = widget.task['date'];
+    timeValue = widget.task['time'];
   }
 
   @override
   void dispose() {
     _titleController.dispose();
-    _dateController.dispose();
-    _timeController.dispose();
     _notesController.dispose();
     super.dispose();
   }
@@ -38,13 +64,6 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Edit Task',
-          style: TextStyle(color: Color(0xFF2196F3)),
-        ),
-        backgroundColor: Colors.white,
-      ),
       body: Container(
         color: Colors.white,
         width: double.infinity,
@@ -52,178 +71,151 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
-            child: Form(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Title',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2196F3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Edit Task',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF2196F3),
+                      ),
                     ),
+                    MaterialButton(
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(fontSize: 15, color: Colors.red),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                ),
+                const SizedBox(height: 8),
+                MyTextfield(
+                  hintText: "Task Name",
+                  obscureText: false,
+                  backgroundColor: Colors.blue[50],
+                  borderSideColor: Colors.white,
+                  controller: _titleController,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Date',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2196F3),
                   ),
-                  const SizedBox(height: 8),
-                  Container(
+                ),
+                const SizedBox(height: 8),
+                MaterialButton(
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width * .4,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFBBDEFB),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 4,
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.calendar_month_outlined,
+                          color: Colors.orange,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          dateValue ?? "Set Date",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black54,
+                          ),
                         ),
                       ],
                     ),
-                    child: TextFormField(
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        hintText: 'Enter Task Title',
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 4, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                    ),
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Date',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2196F3),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFBBDEFB),
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                spreadRadius: 2,
-                                blurRadius: 4,
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _dateController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter Date',
-                              prefixIcon: const Icon(Icons.calendar_today, color: Colors.blue),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(width: 4, color: Colors.blue),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFBBDEFB),
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                spreadRadius: 2,
-                                blurRadius: 4,
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _timeController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter Time',
-                              prefixIcon: const Icon(Icons.access_time, color: Colors.blue),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(width: 4, color: Colors.blue),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Notes',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2196F3),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
+                  onPressed: () {
+                    _selectedDate(context);
+                  },
+                ),
+                const SizedBox(height: 8),
+                MaterialButton(
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width * .4,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFBBDEFB),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 4,
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.access_time,
+                          color: Colors.red,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          timeValue ?? "Set Time",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black54,
+                          ),
                         ),
                       ],
                     ),
-                    child: TextFormField(
-                      controller: _notesController,
-                      maxLines: 4,
-                      decoration: InputDecoration(
-                        hintText: 'Enter Notes',
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 4, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                    ),
                   ),
-                  const SizedBox(height: 16),
-                ],
-              ),
+                  onPressed: () {
+                    _selectedTime(context);
+                  },
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Notes',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2196F3),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                MyTextfield(
+                  hintText: "Task Notes",
+                  obscureText: false,
+                  maxLines: 6,
+                  borderSideColor: Colors.white,
+                  backgroundColor: Colors.blue[50],
+                  controller: _notesController,
+                ),
+              ],
             ),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context, {
+          final task = {
             'title': _titleController.text,
-            'date': _dateController.text,
-            'time': _timeController.text,
+            'time': timeValue ?? "00:00",
+            'date': dateValue ?? "",
             'notes': _notesController.text,
-          });
+          };
+          Navigator.pop(context, task);
         },
         backgroundColor: Colors.blue,
-        child: const Icon(Icons.check, size: 28),
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.check,
+          size: 28,
+          color: Colors.white,
+        ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

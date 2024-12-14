@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:to_do_app/screens/profile_screen.dart';
 import 'HomeScreen.dart';
+import 'calendar_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Map<String, dynamic>> _pages = [
     {'page': const HomeScreen(), 'title': 'Home'},
     {'page': const CalendarScreen(), 'title': 'Calendar'},
-    {'page': const SettingsScreen(), 'title': 'Settings'},
+    {'page': const ProfileScreen(), 'title': 'Settings'},
   ];
 
   void _onTabTapped(int index) {

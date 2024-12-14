@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/screens/MainScreen.dart';
 import 'package:to_do_app/screens/profile_screen.dart';
 import '../componants/my_button.dart';
 import '../componants/my_textfield.dart';
@@ -169,7 +170,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ProfileScreen(),
+                              builder: (context) => const MainScreen(),
                             ),
                           );
                         } else {

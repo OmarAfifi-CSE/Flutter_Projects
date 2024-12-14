@@ -5,14 +5,18 @@ import 'package:to_do_app/componants/my_textfield.dart';
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
 
+
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final _taskNameKey = GlobalKey<FormState>();
+
   String? dateValue;
   String? timeValue;
+  String? taskName;
+  String? taskNotes;
 
   Future<void> _selectedDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -84,6 +88,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   obscureText: false,
                   backgroundColor: Colors.blue[50],
                   borderSideColor: Colors.white,
+                  onChanged: (val) {
+                    setState(() {
+                      taskName = val;
+                    });
+                  },
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -170,6 +179,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   maxLines: 6,
                   borderSideColor: Colors.white,
                   backgroundColor: Colors.blue[50],
+                  onChanged: (val) {
+                    setState(() {
+                      taskNotes = val;
+                    });
+                  },
                 ),
               ],
             ),
@@ -179,7 +193,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (_taskNameKey.currentState!.validate()) {
-            Navigator.pop(context);
+            final task = {
+              'title': taskName!,
+              'time': timeValue ?? "00:00",
+              'date': dateValue ?? "",
+              'notes': taskNotes ?? "",
+            };
+            Navigator.pop(context, task);
           }
         },
         backgroundColor: Colors.blue,
@@ -194,3 +214,4 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
   }
 }
+

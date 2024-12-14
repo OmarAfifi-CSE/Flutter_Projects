@@ -1,6 +1,6 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import '../componants/my_task_tile.dart';
 import 'AddTaskScreen.dart';
 import 'TaskDetailsScreen.dart';
 
@@ -14,8 +14,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, String>> _tasks = [];
-  final TextEditingController _searchController = TextEditingController();
-  String _searchError = '';
+  final String _searchError = '';
+  String? searchValue;
+
+
+  List<Map<String, String>> get filteredTasks {
+    if (searchValue == null || searchValue!.isEmpty) {
+      return _tasks;
+    } else {
+      return _tasks.where((task) {
+        return task['title']?.toLowerCase().contains(searchValue!.toLowerCase()) ?? false;
+      }).toList();
+    }
+  }
 
   void _addTask(Map<String, String> task) {
     setState(() {
@@ -23,34 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+
   void _updateTask(int index, Map<String, String> task) {
     setState(() {
       _tasks[index] = task;
     });
-  }
-
-  void _searchTask() {
-    String searchQuery = _searchController.text.toLowerCase().trim();
-    bool taskFound = false;
-
-    for (var task in _tasks) {
-      if (task['title']?.toLowerCase().contains(searchQuery) ?? false) {
-        taskFound = true;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TaskDetailsScreen(task: task),
-          ),
-        );
-        break;
-      }
-    }
-
-    if (!taskFound) {
-      setState(() {
-        _searchError = 'The task you are searching for is not found.';
-      });
-    }
   }
 
   @override
@@ -65,18 +53,22 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextFormField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search for Tasks, Events',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: _searchTask,
+              const SizedBox(height: 30),
+              SearchBar(
+                leading: const Icon(Icons.search_rounded, size: 30),
+                hintText: "Search for Tasks, Events",
+                backgroundColor: WidgetStateProperty.all(Colors.blue[50]),
+                elevation: WidgetStateProperty.all(0),
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                onChanged: (val) {
+                  setState(() {
+                    searchValue = val;
+                  });
+                },
               ),
               const SizedBox(height: 8),
               if (_searchError.isNotEmpty)
@@ -92,63 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Today's Tasks",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16),
               Expanded(
                 child: ListView.builder(
-                  itemCount: _tasks.length,
+                  itemCount: filteredTasks.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 6,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        child: ListTile(
-                          leading: Checkbox(
-                            value: _tasks[index]['done'] == 'true',
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _tasks[index]['done'] = value! ? 'true' : 'false';
-                              });
-                            },
-                          ),
-                          title: Text(
-                            _tasks[index]['title'] ?? '',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          trailing: Text(
-                            _tasks[index]['time'] ?? '',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onTap: () async {
-                            final updatedTask = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TaskDetailsScreen(task: _tasks[index]),
-                              ),
-                            );
-                            if (updatedTask != null) {
-                              _updateTask(index, updatedTask);
-                            }
-                          },
-                        ),
-                      ),
+                    final task = filteredTasks[index];
+                    return MyTaskTile(
+                      task: task['title'] ?? '',
+                      time: task['time'] ?? '',
                     );
                   },
                 ),
@@ -171,6 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         backgroundColor: const Color(0xFF2196F3),
+        shape: const CircleBorder(),
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -181,21 +129,5 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 
-class CalendarScreen extends StatelessWidget {
-  const CalendarScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Calendar Page'));
-  }
-}
-
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Settings Page'));
-  }
-}
 

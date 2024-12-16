@@ -64,7 +64,7 @@ class ProfilePageScreen extends StatelessWidget {
                   ),
                   const MyCard(
                     icon: Icon(Icons.email_outlined),
-                    title: "Bugyateer.cse@gmail.com",
+                    title: "Bugyateer@gmail.com",
                   ),
                   const MyCard(
                     icon: Icon(Icons.phone_android_outlined),
@@ -72,7 +72,7 @@ class ProfilePageScreen extends StatelessWidget {
                   ),
                   const MyCard(
                     icon: Icon(Icons.facebook_outlined),
-                    title: "/BugYateer.CSE",
+                    title: "/BugYateer",
                   ),
                   const SizedBox(
                     height: 15,

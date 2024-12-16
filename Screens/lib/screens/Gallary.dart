@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-
-
-
 class GalleryPage extends StatelessWidget {
-  final List<String> buttons = ["GOAT", "Aboutrika", "Nature", "Mountains", "Foot Ball"];
+  final List<String> buttons = [
+    "GOAT",
+    "Aboutrika",
+    "Nature",
+    "Mountains",
+    "Foot Ball"
+  ];
 
   GalleryPage({super.key});
 
@@ -12,7 +15,7 @@ class GalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple[50],
+        backgroundColor: Colors.blue[500],
         leading: const Icon(Icons.menu, color: Colors.black),
         title: const Text(
           "Gallery",
@@ -26,39 +29,51 @@ class GalleryPage extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: buttons.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
-              child: MaterialButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ImagePage(title: buttons[index]),
+      body: Stack(
+        children: [
+          SizedBox.expand(
+            child: Image.asset(
+              'assets/images/background.png', // Replace with your image path
+              fit: BoxFit.cover,
+            ),
+          ),
+          Center(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              itemCount: buttons.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ImagePage(title: buttons[index]),
+                        ),
+                      );
+                    },
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                  );
-                },
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 2,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  buttons[index],
-                  style: const TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontSize: 16,
+                    elevation: 2,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      buttons[index],
+                      style: const TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       backgroundColor: Colors.purple[50],
     );
@@ -84,7 +99,6 @@ class ImagePage extends StatelessWidget {
       "assets/images/salah.png",
       "assets/images/fede.png",
       "assets/images/biligol.png",
-
     ],
     "Aboutrika": [
       "assets/images/trika1.png",
@@ -99,7 +113,6 @@ class ImagePage extends StatelessWidget {
       "assets/images/trika1.png",
       "assets/images/trika2.png",
       "assets/images/trika3.png",
-
     ],
     "Nature": [
       "assets/images/img1.png",
@@ -154,7 +167,7 @@ class ImagePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple[50],
+        backgroundColor: Colors.blue[500],
         title: Text(
           title,
           style: const TextStyle(color: Colors.black),
@@ -162,48 +175,67 @@ class ImagePage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: imageList.isEmpty
-          ? const Center(
-        child: Text(
-          "No images available",
-          style: TextStyle(fontSize: 18),
-        ),
-      )
-          : GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-        ),
-        itemCount: imageList.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    child: InteractiveViewer(
-                      child: Image.asset(
-                        imageList[index],
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Image.asset(
-                imageList[index],
-                fit: BoxFit.cover,
+          ? Stack(
+              children: [
+                SizedBox.expand(
+                  child: Image.asset(
+                    'assets/images/background.png', // Replace with your image path
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const Center(
+                  child: Text(
+                    "No images available",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ],
+            )
+          : Stack(
+            children: [
+              SizedBox.expand(
+                child: Image.asset(
+                  'assets/images/background.png', // Replace with your image path
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          );
-        },
-      ),
+                GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemCount: imageList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              child: InteractiveViewer(
+                                child: Image.asset(
+                                  imageList[index],
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.asset(
+                          imageList[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+          ),
     );
   }
 }
-
